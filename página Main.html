@@ -1,155 +1,145 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌟 Cuestionario para Niños - Tecnologías Emergentes</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/fontsource-poppins@4.0.0/index.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Nunito:wght@400;600;700;800&display=swap');
+<meta charset="UTF-8">
+<title>Cuestionario - Tecnologías Emergentes</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #6ec6ff, #b388ff);
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        width: 90%;
+        max-width: 500px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    h1 {
+        color: #6a1b9a;
+    }
+    #question {
+        font-size: 18px;
+        margin: 20px 0;
+    }
+    textarea {
+        width: 100%;
+        height: 80px;
+        border-radius: 10px;
+        border: 2px solid #6ec6ff;
+        padding: 10px;
+        font-size: 14px;
+    }
+    button {
+        margin-top: 15px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        background: #6a1b9a;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #4a148c;
+    }
+</style>
+</head>
+<body>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+<div class="container">
+    <h1>📚 Cuestionario</h1>
+    <div id="question"></div>
+    <textarea id="answer" placeholder="Escribe tu respuesta aquí..."></textarea>
+    <br>
+    <button onclick="nextQuestion()">Siguiente</button>
+</div>
 
-        body {
-            font-family: 'Nunito', sans-serif;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+<script>
+const questions = [
+"¿Qué caracteriza a las tecnologías emergentes?",
+"¿Qué permiten hacer con el aprendizaje?",
+"¿Cómo ayudan al acceso a la educación?",
+"¿Qué fomentan entre estudiantes?",
+"¿Qué cambian en la enseñanza tradicional?",
+"¿Por qué son importantes en zonas rurales?",
+"¿Qué problema ayudan a reducir?",
+"¿Cómo hacen las clases más interesantes?",
+"¿Qué permiten al estudiante hacer mejor?",
+"¿Qué cambio generan en la educación?",
 
-        .bg-animated {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 12s ease infinite;
-        }
+"¿Qué es la inteligencia artificial en palabras simples?",
+"¿Cómo ayuda la IA al estudiante?",
+"¿Qué tipo de apoyo brindan las tutorías virtuales?",
+"¿Qué hace la corrección automática?",
+"¿Cómo genera ejercicios la IA?",
+"¿Qué analiza la IA del estudiante?",
+"¿Qué tipo de enseñanza permite la IA?",
+"¿Qué ventaja tiene la retroalimentación inmediata?",
+"¿Cómo mejora el rendimiento académico?",
+"¿Por qué se debe usar con responsabilidad?",
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+"¿Qué son las clases virtuales?",
+"¿Qué herramientas se usan en clases virtuales?",
+"¿Cuál es una ventaja importante?",
+"¿Qué permite la flexibilidad de horarios?",
+"¿Qué recursos hacen las clases más dinámicas?",
+"¿En qué situaciones fueron muy importantes?",
+"¿Cómo ayudan a estudiantes de zonas alejadas?",
+"¿Qué tipo de barreras eliminan?",
+"¿Qué permiten las plataformas digitales?",
+"¿Cómo cambian la educación tradicional?",
 
-        .card-main {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-        }
+"¿Qué dispositivos se usan en educación actualmente?",
+"¿Para qué sirven los celulares en el aprendizaje?",
+"¿Qué permiten hacer las tablets?",
+"¿Qué tipo de lectura se promueve?",
+"¿Qué habilidades se desarrollan?",
+"¿Por qué son útiles estos dispositivos?",
+"¿Qué ventaja tienen frente a libros físicos?",
+"¿Cómo ayudan al estudiante?",
+"¿Qué tipo de aprendizaje promueven?",
+"¿Cómo complementan la educación?",
 
-        .bubble {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.15;
-            animation: floatUp 8s ease-in infinite;
-        }
+"¿Cuál es un beneficio principal de estas tecnologías?",
+"¿Cómo ayudan al estudiante?",
+"¿Qué fomentan en la educación?",
+"¿Qué habilidades desarrollan?",
+"¿Cómo mejoran la enseñanza?",
+"¿Qué tipo de aprendizaje promueven?",
+"¿Qué integración permiten?",
+"¿Por qué son importantes en Bolivia?",
+"¿Cómo ayudan a la comunidad?",
+"¿Qué logran en el modelo educativo?"
+];
 
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            20% { opacity: 0.15; }
-            80% { opacity: 0.15; }
-            100% { transform: translateY(-20vh) scale(1); opacity: 0; }
-        }
+let current = 0;
 
-        .btn-next {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
+function showQuestion() {
+    document.getElementById("question").innerText = questions[current];
+    document.getElementById("answer").value = "";
+}
 
-        .btn-next:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.5);
-        }
+function nextQuestion() {
+    if (current < questions.length - 1) {
+        current++;
+        showQuestion();
+    } else {
+        document.getElementById("question").innerText = "🎉 ¡Has terminado el cuestionario!";
+        document.getElementById("answer").style.display = "none";
+    }
+}
 
-        .btn-next:active {
-            transform: translateY(0) scale(0.98);
-        }
+showQuestion();
+</script>
 
-        .btn-start {
-            background: linear-gradient(135deg, #f093fb, #f5576c);
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
-        }
-
-        .btn-start:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 12px 35px rgba(245, 87, 108, 0.5);
-        }
-
-        .question-enter {
-            animation: slideIn 0.5s ease-out;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(60px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .question-exit {
-            animation: slideOut 0.3s ease-in forwards;
-        }
-
-        @keyframes slideOut {
-            from { opacity: 1; transform: translateX(0); }
-            to { opacity: 0; transform: translateX(-60px); }
-        }
-
-        .progress-fill {
-            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .star-bounce {
-            animation: starBounce 0.6s ease;
-        }
-
-        @keyframes starBounce {
-            0% { transform: scale(0); }
-            50% { transform: scale(1.3); }
-            100% { transform: scale(1); }
-        }
-
-        .section-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: white;
-        }
-
-        .input-answer {
-            border: 3px solid #e2e8f0;
-            transition: all 0.3s ease;
-            border-radius: 20px;
-        }
-
-        .input-answer:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
-        }
-
-        .confetti-piece {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            border-radius: 2px;
-            animation: confettiFall 3s ease-in forwards;
-            z-index: 1000;
-        }
-
-        @keyframes confettiFall {
-            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-        }
-
-        .emoji-float {
-            display: inline-block;
-            animation: emojiFloat 2s ease-in-out infinite;
-        }
-
-        @keyframes emojiFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform:
+</body>
+</html>
+        
